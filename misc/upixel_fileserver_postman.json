@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "a5973100-973d-47df-8801-4c0fc2924a3c",
+		"name": "uPixel File Server Docs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37089183"
+	},
+	"item": [
+		{
+			"name": "Index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{fileserver_base_url}}/",
+					"host": [
+						"{{fileserver_base_url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Files",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 123",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/schincariol-artur/Desktop/upixel/upixel_fileserver_content/logo.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fileserver_base_url}}/files",
+					"host": [
+						"{{fileserver_base_url}}"
+					],
+					"path": [
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer 123",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/schincariol-artur/Desktop/upixel/upixel-app/public/logo.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fileserver_base_url}}/upload",
+					"host": [
+						"{{fileserver_base_url}}"
+					],
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete File",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 123",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"filename\": \"17b92ca6881fd9b99383-logo.png\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{fileserver_base_url}}/file",
+					"host": [
+						"{{fileserver_base_url}}"
+					],
+					"path": [
+						"file"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

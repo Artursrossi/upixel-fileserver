@@ -1,0 +1,17 @@
+{
+  "name": "upixel-fileserver",
+  "version": "1.0.0",
+  "license": "ISC",
+  "author": "Artur Schincariol Rossi",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch src/server.js",
+    "start": "node --env-file=.env src/server.js"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^9.0.1",
+    "@fastify/rate-limit": "^10.2.1",
+    "@fastify/static": "^8.0.3",
+    "fastify": "^5.1.0"
+  }
+}

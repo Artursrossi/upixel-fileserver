@@ -4,11 +4,14 @@ import fastifyStatic from "@fastify/static";
 import fastifyMultipart from "@fastify/multipart";
 
 import { filesController } from "./controllers/files/router.js";
+import { envSchema } from "./config/env.js";
 
 const app = Fastify({
   logger: true,
   disableRequestLogging: true,
 });
+
+envSchema.parse(process.env);
 
 await app.register(fastifyRateLimit, {
   global: true,
@@ -21,7 +24,11 @@ await app.register(fastifyStatic, {
   prefix: "/",
 });
 
-await app.register(fastifyMultipart);
+await app.register(fastifyMultipart, {
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+});
 
 /*  Index Route */
 app.get("/", async (request, reply) => {

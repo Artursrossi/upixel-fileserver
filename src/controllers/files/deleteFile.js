@@ -1,9 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { z } from "zod";
+
+const deleteFileSchema = z.object({
+  filename: z.string(),
+});
 
 export async function deleteFile(request, reply) {
   const contentDirectory = process.env.UPIXEL_FILESERVER_CONTENT_DIRECTORY;
-  const { filename } = request.body;
+  const { filename } = deleteFileSchema.parse(request.body);
 
   /* Data Parse */
   if (!filename)

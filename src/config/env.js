@@ -8,5 +8,5 @@ export const envSchema = z.object({
     .default("development"),
   /* SECRETS */
   UPIXEL_FILESERVER_CONTENT_DIRECTORY: z.string(),
-  UPIXEL_FILESERVER_SECRET: z.string(),
+  UPIXEL_FILESERVER_KEY: z.string(),
 });

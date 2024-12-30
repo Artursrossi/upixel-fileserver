@@ -20,5 +20,5 @@ export async function uploadImage(request, reply) {
   const fileDirectory = path.join(contentDirectory, fileName);
   await pump(part.file, fs.createWriteStream(fileDirectory));
 
-  return reply.status(201).send({ message: "CREATED" });
+  return reply.status(201).send({ message: "CREATED", filename: fileName });
 }

@@ -11,10 +11,10 @@ export const isAuthenticated = (request, reply, done) => {
     if (authorizationValuesArr[0] !== "Bearer" || !requestSecret)
       return reply.status(401).send({ message: "Not Authorized" });
 
-    const UPIXEL_FILESERVER_SECRET = process.env.UPIXEL_FILESERVER_SECRET;
+    const UPIXEL_FILESERVER_KEY = process.env.UPIXEL_FILESERVER_KEY;
 
     /* Compare the secret with .env */
-    if (requestSecret !== UPIXEL_FILESERVER_SECRET)
+    if (requestSecret !== UPIXEL_FILESERVER_KEY)
       return reply.status(401).send({ message: "Not Authorized" });
 
     done();

@@ -5,6 +5,7 @@ import fastifyMultipart from "@fastify/multipart";
 
 import { filesController } from "./controllers/files/router.js";
 import { envSchema } from "./config/env.js";
+import { errorHandler } from "./error-handler.js";
 
 const app = Fastify({
   logger: true,
@@ -12,6 +13,8 @@ const app = Fastify({
 });
 
 envSchema.parse(process.env);
+
+app.setErrorHandler(errorHandler);
 
 await app.register(fastifyRateLimit, {
   global: true,

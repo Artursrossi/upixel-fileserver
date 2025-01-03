@@ -10,11 +10,12 @@
 - [ Getting Started](#-getting-started)
   - [ Prerequisites](#-prerequisites)
   - [ Installation](#-installation)
+  - [ Configuration](#-configuration)
   - [ Usage](#-usage)
 
 ## Overview
 
-<code>❯ Microservice for manage images and other files for uPixel store</code>
+<code>❯ Microservice for manage images and other files for uPixel store.</code>
 
 ## Project Structure
 

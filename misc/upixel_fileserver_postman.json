@@ -25,28 +25,15 @@
 		},
 		{
 			"name": "Get Files",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 123",
+						"value": "Bearer {{fileserver_key}}",
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/home/schincariol-artur/Desktop/upixel/upixel_fileserver_content/logo.png"
-						}
-					]
-				},
 				"url": {
 					"raw": "{{fileserver_base_url}}/files",
 					"host": [
@@ -66,7 +53,7 @@
 				"header": [
 					{
 						"key": "authorization",
-						"value": "Bearer 123",
+						"value": "Bearer {{fileserver_key}}",
 						"type": "text"
 					}
 				],
@@ -76,17 +63,23 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/home/schincariol-artur/Desktop/upixel/upixel-app/public/logo.png"
+							"src": "/home/schincariol-artur/Desktop/upixel/upixel-app/public/logo2.png"
 						}
 					]
 				},
 				"url": {
-					"raw": "{{fileserver_base_url}}/upload",
+					"raw": "{{fileserver_base_url}}/upload?prefix=upixel",
 					"host": [
 						"{{fileserver_base_url}}"
 					],
 					"path": [
 						"upload"
+					],
+					"query": [
+						{
+							"key": "prefix",
+							"value": "upixel"
+						}
 					]
 				}
 			},
@@ -99,13 +92,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 123",
+						"value": "Bearer {{fileserver_key}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"filename\": \"17b92ca6881fd9b99383-logo.png\"\n}",
+					"raw": "{\n\t\"filename\": \"2bf83a192bf000c782ab-logo2.png\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

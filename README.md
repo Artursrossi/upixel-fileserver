@@ -5,13 +5,13 @@
 
 ## Table of Contents
 
-- [ Overview](#-overview)
-- [ Project Structure](#-project-structure)
-- [ Getting Started](#-getting-started)
-  - [ Prerequisites](#-prerequisites)
-  - [ Installation](#-installation)
-  - [ Configuration](#-configuration)
-  - [ Usage](#-usage)
+- [ Overview](#overview)
+- [ Project Structure](#project-structure)
+- [ Getting Started](#getting-started)
+  - [ Prerequisites](#prerequisites)
+  - [ Installation](#installation)
+  - [ Configuration](#configuration)
+  - [ Usage](#usage)
 
 ## Overview
 

@@ -9,6 +9,7 @@ import { folders } from "./config/folders.js";
 import { errorHandler } from "./error-handler.js";
 import { filesController } from "./controllers/files/router.js";
 import { generateDirectoryStructure } from "./services/generateDirectoryStructure.js";
+import { tempFolderExpirationsChecker } from "./services/checkTempFolderExpirations.js";
 
 /* Start Fastify */
 const app = Fastify({
@@ -57,6 +58,9 @@ app.get("/", async (request, reply) => {
 
 /* Controllers */
 app.register(filesController);
+
+/* Services */
+tempFolderExpirationsChecker();
 
 try {
   await app.listen({

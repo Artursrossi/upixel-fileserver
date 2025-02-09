@@ -1,121 +1,134 @@
 {
-	"info": {
-		"_postman_id": "a5973100-973d-47df-8801-4c0fc2924a3c",
-		"name": "uPixel File Server Docs",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37089183"
-	},
-	"item": [
-		{
-			"name": "Index",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{fileserver_base_url}}/",
-					"host": [
-						"{{fileserver_base_url}}"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Files",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{fileserver_key}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{fileserver_base_url}}/files",
-					"host": [
-						"{{fileserver_base_url}}"
-					],
-					"path": [
-						"files"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Upload Image",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "Bearer {{fileserver_key}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/home/schincariol-artur/Desktop/upixel/upixel-app/public/logo2.png"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{fileserver_base_url}}/upload?prefix=upixel",
-					"host": [
-						"{{fileserver_base_url}}"
-					],
-					"path": [
-						"upload"
-					],
-					"query": [
-						{
-							"key": "prefix",
-							"value": "upixel"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete File",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{fileserver_key}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"filename\": \"2bf83a192bf000c782ab-logo2.png\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{fileserver_base_url}}/file",
-					"host": [
-						"{{fileserver_base_url}}"
-					],
-					"path": [
-						"file"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "a5973100-973d-47df-8801-4c0fc2924a3c",
+    "name": "uPixel File Server Docs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37089183"
+  },
+  "item": [
+    {
+      "name": "Index",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{fileserver_base_url}}/",
+          "host": ["{{fileserver_base_url}}"],
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{fileserver_key}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{fileserver_base_url}}/files",
+          "host": ["{{fileserver_base_url}}"],
+          "path": ["files"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{fileserver_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/home/schincariol-artur/Desktop/upixel/upixel-app/public/logo2.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{fileserver_base_url}}/upload?prefix=server",
+          "host": ["{{fileserver_base_url}}"],
+          "path": ["upload"],
+          "query": [
+            {
+              "key": "prefix",
+              "value": "server"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{fileserver_key}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{fileserver_base_url}}/confirm/upixel-server-45600cbf776f2100f217.png",
+          "host": ["{{fileserver_base_url}}"],
+          "path": ["confirm", "upixel-server-45600cbf776f2100f217.png"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{fileserver_key}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{fileserver_base_url}}/cancel/upixel-server-45600cbf776f2100f217.png",
+          "host": ["{{fileserver_base_url}}"],
+          "path": ["cancel", "upixel-server-45600cbf776f2100f217.png"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{fileserver_key}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{fileserver_base_url}}/file/upixel-server-45600cbf776f2100f217.png",
+          "host": ["{{fileserver_base_url}}"],
+          "path": ["file", "upixel-server-45600cbf776f2100f217.png"]
+        }
+      },
+      "response": []
+    }
+  ]
 }

@@ -1,13 +1,13 @@
 import crypto from "crypto";
-import util from "util";
-import { pipeline } from "stream";
 import fs from "fs";
 import path from "path";
+import util from "util";
+import { pipeline } from "stream";
 import { z } from "zod";
 
 const pump = util.promisify(pipeline);
 
-const uploadImageQuerySchema = z.object({
+const uploadFileQuerySchema = z.object({
   prefix: z
     .string()
     .min(1)
@@ -15,32 +15,39 @@ const uploadImageQuerySchema = z.object({
     .optional(),
 });
 
-export async function uploadImage(request, reply) {
+export async function uploadFile(request, reply) {
   const contentDirectory = process.env.UPIXEL_FILESERVER_CONTENT_DIRECTORY;
-  const { prefix } = uploadImageQuerySchema.parse(request.query);
+  const { prefix } = uploadFileQuerySchema.parse(request.query);
 
   /* Get part from @fastify/multipart */
   const part = await request.file();
 
-  /* Accept only Image format */
-  if (!part.mimetype.startsWith("image/")) {
-    return reply
-      .status(400)
-      .send({ message: "Invalid file format (Needs to be an image)" });
-  }
-
-  /* Remove special caracteres from part.filename */
-  const formattedPartFilename = part.filename.replace(/[^a-zA-Z0-9.']/gi, "");
+  /* Get file format */
+  const fileFormatArr = part.filename.split(".");
+  if (fileFormatArr.length <= 1)
+    return reply.status(400).send({ message: "Invalid file format" });
+  const fileFormat = fileFormatArr[fileFormatArr.length - 1];
 
   /* Define unique name for file */
   const fileHash = crypto.randomBytes(10).toString("hex");
   const fileName = prefix
-    ? `${prefix}-${fileHash}-${formattedPartFilename}`
-    : `${fileHash}-${formattedPartFilename}`;
+    ? `upixel-${prefix}-${fileHash}.${fileFormat}`
+    : `upixel-${fileHash}.${fileFormat}`;
+
+  /* Verify if already exist a file with the same name */
+  const filePath = path.join(contentDirectory, "temp", fileName);
+  const hasDuplicatedFilename = fs.existsSync(filePath);
+  if (hasDuplicatedFilename)
+    return reply.status(400).send({ message: "Duplicated filename" });
 
   /* Save file */
-  const fileDirectory = path.join(contentDirectory, fileName);
-  await pump(part.file, fs.createWriteStream(fileDirectory));
+  await pump(part.file, fs.createWriteStream(filePath));
+
+  /* Delete file if size limit is reach (this verification needs to be after pump function) */
+  if (part.file.truncated) {
+    fs.unlinkSync(filePath);
+    return reply.status(400).send({ message: "File too large" });
+  }
 
   return reply.status(201).send({ message: "CREATED", filename: fileName });
 }

@@ -2,34 +2,50 @@ import Fastify from "fastify";
 import fastifyRateLimit from "@fastify/rate-limit";
 import fastifyStatic from "@fastify/static";
 import fastifyMultipart from "@fastify/multipart";
+import path from "path";
 
-import { filesController } from "./controllers/files/router.js";
 import { envSchema } from "./config/env.js";
+import { folders } from "./config/folders.js";
 import { errorHandler } from "./error-handler.js";
+import { filesController } from "./controllers/files/router.js";
+import { generateDirectoryStructure } from "./services/generateDirectoryStructure.js";
+import { tempFolderExpirationsChecker } from "./services/checkTempFolderExpirations.js";
 
+/* Start Fastify */
 const app = Fastify({
   logger: true,
   disableRequestLogging: true,
 });
 
+/* Validate .env */
 envSchema.parse(process.env);
 
+/* Generate necessary sub-directories */
+await generateDirectoryStructure(app);
+
+/* Set a custom error handler */
 app.setErrorHandler(errorHandler);
 
+/* Global Rate-limit config */
 await app.register(fastifyRateLimit, {
   global: true,
-  max: 50,
-  timeWindow: 1000 * 30, // 30 segundos
+  max: 100,
+  timeWindow: "1 minute",
 });
 
+/* Provide all static files */
+const foldersToProvide = folders.map((folder) =>
+  path.join(process.env.UPIXEL_FILESERVER_CONTENT_DIRECTORY, folder)
+);
 await app.register(fastifyStatic, {
-  root: process.env.UPIXEL_FILESERVER_CONTENT_DIRECTORY,
+  root: foldersToProvide,
   prefix: "/",
 });
 
+/* Multipart config */
 await app.register(fastifyMultipart, {
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB
+    fileSize: 1024 * 1024 * 4, // 4MB
   },
 });
 
@@ -42,6 +58,9 @@ app.get("/", async (request, reply) => {
 
 /* Controllers */
 app.register(filesController);
+
+/* Services */
+tempFolderExpirationsChecker();
 
 try {
   await app.listen({

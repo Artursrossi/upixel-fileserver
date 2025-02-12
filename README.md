@@ -33,8 +33,20 @@
         ├── controllers
         ├── error-handler.js
         ├── middlewares
-        └── server.js
+        ├── server.js
+        └── services
 ```
+
+## Routes
+
+| Route     | Method | Details                                                      |
+| --------- | ------ | ------------------------------------------------------------ |
+| Index     | GET    | Show API information                                         |
+| List      | GET    | List all files                                               |
+| Upload    | POST   | Upload any file to temp directory                            |
+| Confirm   | POST   | Move staged file from temp directory to corresponding folder |
+| Cancel    | DELETE | Delete staged file at temp directory                         |
+| Delete    | DELETE | Delete file regardless of the location                       |
 
 ## Getting Started
 

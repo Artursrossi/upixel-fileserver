@@ -1,0 +1,18 @@
+# Node-specific
+/node_modules
+.env
+.env.example
+
+# Git-related
+.git
+.github
+.gitignore
+
+# Docker-related
+Dockerfile
+.dockerignore
+
+# Generics
+/misc
+readme-logo.png
+README.md

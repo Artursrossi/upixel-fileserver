@@ -1,0 +1,30 @@
+services:
+  upixel_fileserver_prod:
+    container_name: upixel_fileserver_prod
+    image: ghcr.io/artursrossi/upixel-fileserver:stable
+    restart: unless-stopped
+    environment:
+      - UPIXEL_FILESERVER_KEY=${UPIXEL_FILESERVER_KEY}
+    ports:
+      - 1220:1220
+    volumes:
+      - ${DOCKER_COMPOSE_VOLUME_VPS_DIR_PROD}:/var/lib/upixel-fileserver
+    deploy:
+      update_config:
+        order: start-first
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+        reservations:
+          memory: "128M"
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 60s
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:1220 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

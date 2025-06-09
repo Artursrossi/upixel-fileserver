@@ -24,7 +24,7 @@ services:
         max_attempts: 3
         window: 60s
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:1220 || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:1220/health || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3

@@ -10,6 +10,7 @@ import { errorHandler } from "./error-handler.js";
 import { filesController } from "./controllers/files/router.js";
 import { generateDirectoryStructure } from "./services/generateDirectoryStructure.js";
 import { tempFolderExpirationsChecker } from "./services/checkTempFolderExpirations.js";
+import { healthCheck } from "./healthcheck.js";
 
 /* Start Fastify */
 const app = Fastify({
@@ -55,6 +56,9 @@ app.get("/", async (request, reply) => {
     message: "uPixel File Server Module developed by Artur Schincariol Rossi",
   });
 });
+
+/* Health check route */
+app.get("/health", healthCheck);
 
 /* Controllers */
 app.register(filesController);

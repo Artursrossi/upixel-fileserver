@@ -3,12 +3,12 @@ services:
     container_name: upixel_fileserver_staging
     image: ghcr.io/artursrossi/upixel-fileserver:latest
     restart: unless-stopped
-    environment:
-      - UPIXEL_FILESERVER_KEY=${UPIXEL_FILESERVER_KEY}
     ports:
       - 1231:1220
     volumes:
-      - ${DOCKER_COMPOSE_VOLUME_VPS_DIR_STAGING}:/var/lib/upixel-fileserver
+      - /home/upixel/staging/staging_fileserver_content:/var/lib/upixel-fileserver
+    environment:
+      - UPIXEL_FILESERVER_KEY=${UPIXEL_FILESERVER_KEY}
     deploy:
       update_config:
         order: start-first
@@ -23,6 +23,7 @@ services:
         window: 60s
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:1220/health || exit 1"]
-      interval: 30s
+      interval: 20s
       timeout: 5s
       retries: 3
+      start_period: 10s

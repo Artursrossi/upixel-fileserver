@@ -64,7 +64,7 @@ app.get("/health", healthCheck);
 app.register(filesController);
 
 /* Services */
-tempFolderExpirationsChecker();
+tempFolderExpirationsChecker(app);
 
 try {
   await app.listen({

@@ -8,8 +8,8 @@ import { envSchema } from "./config/env.js";
 import { folders } from "./config/folders.js";
 import { errorHandler } from "./error-handler.js";
 import { filesController } from "./controllers/files/router.js";
-import { generateDirectoryStructure } from "./services/generateDirectoryStructure.js";
-import { tempFolderExpirationsChecker } from "./services/checkTempFolderExpirations.js";
+import { generateDirectoryStructure } from "./services/generate-directory-structure.js";
+import { tempFolderExpirationsChecker } from "./services/check-temp-dir-expirations.js";
 import { healthCheck } from "./healthcheck.js";
 
 /* Start Fastify */

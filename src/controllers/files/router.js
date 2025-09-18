@@ -1,4 +1,4 @@
-import { isAuthenticated } from "../../middlewares/isAuthenticated.js";
+import { isAuthenticated } from "../../middlewares/is-authenticated.js";
 import { listFiles } from "./list.js";
 import { uploadFile } from "./upload.js";
 import { confirmFile } from "./confirm.js";
@@ -14,8 +14,8 @@ export async function filesController(app) {
       preHandler: [isAuthenticated],
       config: {
         rateLimit: {
-          max: 12,
-          timeWindow: "1 minute",
+          max: 20,
+          timeWindow: 1000 * 60 * 10, // 10 minutes
         },
       },
     },
